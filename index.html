@@ -73,7 +73,7 @@ footer .w{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-betwee
 <header class="hero"><div class="w">
 <h1>Prachi Satbhai</h1>
 <p class="sub">Computer engineering student in Nashik. I build pipelines that deploy themselves.</p>
-<p class="hint"><span>Hidden feature</span> This page has a working shell. Type a command or tap one.</p>
+<p class="hint"><span>Hidden feature</span> This page has a working shell. Start with <b>superpower</b>.</p>
 <div class="chips" id="c"></div>
 <div class="term" onclick="I.focus()">
 <div class="bar"><i></i><i></i><i></i><em>prachi@portfolio: ~</em></div>
@@ -130,8 +130,10 @@ help:()=>out(`<span class="a">help</span>      list commands
 <span class="a">open</span> &lt;name&gt;  details, e.g. open pushtodeploy
 <span class="a">deploy</span>    watch a pipeline run
 <span class="a">contact</span>   get in touch
+<span class="a">superpower</span> open the vending machine
 <span class="a">theme</span>     change the colors
-<span class="a">clear</span>     clear the screen`),
+<span class="a">clear</span>     clear the screen
+<span class="d">sudo hire-me   you know you want to</span>`),
 about:()=>out('Prachi Satbhai, B.Tech Computer Engineering student in Nashik.\nAWS SBG Leader, Community Lead at MLSC KBTCOE, crew at GDG Nashik.\nI build cloud and DevOps projects on AWS and write about them on Medium and Hashnode.\nLooking for a remote DevOps internship.'),
 skills:()=>Object.entries(S).forEach(([k,v])=>out(`<span class="a">${k}</span>: ${v.join(', ')}`)),
 projects:()=>P.forEach(p=>out(`<span class="a">${p[0].toLowerCase().padEnd(15)}</span>${p[2].split('. ')[0].replace(/\.$/,'')}`))||out('Type <span class="a">open &lt;name&gt;</span> for details.','d'),
@@ -139,7 +141,9 @@ open:a=>{const p=P.find(x=>x[0].toLowerCase()==(a||'').toLowerCase());if(!p)retu
 contact:()=>out(`Email:    <a href="mailto:${MAIL}">${MAIL}</a>\nGitHub:   <a href="${GH}" target="_blank" rel="noopener">prachi-satbhai0741</a>\nLinkedIn: <a href="${LI}" target="_blank" rel="noopener">prachi-satbhai</a>\nMedium:   <a href="${MD}" target="_blank" rel="noopener">@prachisatbhai</a>\nHashnode: <a href="${HN}" target="_blank" rel="noopener">@prachisatbhai</a>`),
 theme:()=>{const h=document.documentElement,n=themes[(themes.indexOf(h.dataset.t)+1)%3];h.dataset.t=n;out('Theme set to '+n+'.','g')},
 clear:()=>{T.innerHTML=''},
-sudo:()=>out('prachi is not in the sudoers file. This incident will be reported to the hiring manager.','r'),
+sudo:a=>/hire/i.test(a)?(out('Permission granted. Excellent decision.','g'),C.contact()):out('prachi is not in the sudoers file. This incident will be reported to the hiring manager.','r'),
+superpower:async()=>{const V=['Turns a git push into a live deployment on AWS.','Shrinks a 995 MB Docker image to 25 MB.','Sees every open port on a Linux box without netstat. See portwatch.','Turns a hackathon idea into a runner-up project. See LipiSutra.','Brings three communities together: AWS SBG, MLSC KBTCOE and GDG Nashik.','Explains cloud topics in plain words on Medium and Hashnode.'];
+out('+----------------+\n|  SUPERPOWER    |\n|  VENDING       |\n|  MACHINE       |\n|  [ A1 ] [ B2 ] |\n+----------------+','d');await wait(500);out('Coin accepted.','a');await wait(500);out('Dispensing...','d');await wait(900);out('You got: '+V[Math.random()*V.length|0],'g');out('Type <span class="a">superpower</span> again for another one.','d')},
 deploy:async()=>{const L=[['git push origin main','d'],['[actions] checkout, install, test: passed','g'],['[docker] build multi-stage image: 995 MB to 25 MB','g'],['[terraform] plan: 3 to add, 0 to destroy','a'],['[terraform] apply complete','g'],['[amplify] deploying to global CDN...','a'],['[health] GET / returned 200 OK','g']];
 for(const [l,c] of L){out(l,c);await wait(450)}out('You are looking at the result. Live and global.','a')}
 };
@@ -152,9 +156,9 @@ I.addEventListener('keydown',e=>{if(e.key=='Enter'){const v=I.value;I.value='';r
 else if(e.key=='ArrowUp'&&H.length){e.preventDefault();I.value=H[hi=Math.max(0,hi-1)]}
 else if(e.key=='ArrowDown'){e.preventDefault();I.value=H[hi=Math.min(H.length,hi+1)]||''}
 else if(e.key=='Tab'){e.preventDefault();const m=Object.keys(C).filter(k=>k.startsWith(I.value));if(m.length==1)I.value=m[0]}});
-$('#c').innerHTML=['help','projects','deploy','theme'].map(c=>`<button>${c}</button>`).join('');
+$('#c').innerHTML=['help','superpower','projects','deploy','theme'].map(c=>`<button>${c}</button>`).join('');
 $('#c').onclick=e=>e.target.tagName=='BUTTON'&&run(e.target.textContent);
-out('Welcome. I\'m Prachi.','a');out('Type <span class="a">help</span> to see what this terminal can do.','d');
+(async()=>{for(const [l,c] of [['booting prachi-os 1.0...','d'],['loading skills... ok','d'],['mounting projects... ok','d'],['Welcome. I\'m Prachi.','a'],['Type <span class="a">help</span>, or try <span class="a">superpower</span>.','d']]){out(l,c);await wait(350)}})();
 </script>
 </body>
 </html>
